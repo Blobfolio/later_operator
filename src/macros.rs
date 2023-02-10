@@ -1,0 +1,84 @@
+/*!
+# Later Operator: Macros
+*/
+
+macro_rules! as_ref_borrow {
+	($from:ty, $fn:ident, $to:ty) => (
+		impl AsRef<$to> for $from {
+			fn as_ref(&self) -> &$to { self.$fn() }
+		}
+		impl ::std::borrow::Borrow<$to> for $from {
+			fn borrow(&self) -> &$to { self.$fn() }
+		}
+	);
+}
+
+#[cfg(feature = "serde")]
+macro_rules! deserialize_str {
+	($ty:ty, $fn:ident) => (
+		#[cfg_attr(docsrs, doc(cfg(feature = "serde")))]
+		impl<'de> ::serde::Deserialize<'de> for $ty {
+			fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+			where D: ::serde::de::Deserializer<'de> {
+				<&str>::deserialize(deserializer).and_then(|s|
+					<$ty>::$fn(s).map_err(::serde::de::Error::custom)
+				)
+			}
+		}
+	);
+}
+
+macro_rules! display_str {
+	($ty:ty, $fn:ident) => (
+		impl ::std::fmt::Display for $ty {
+			fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+				f.write_str(self.$fn())
+			}
+		}
+	);
+}
+
+macro_rules! from_str {
+	($ty:ty, $fn:ident) => (
+		impl ::std::str::FromStr for $ty {
+			type Err = $crate::Error;
+			fn from_str(src: &str) -> Result<Self, Self::Err> { Self::$fn(src) }
+		}
+	);
+}
+
+macro_rules! partial_eq {
+	($from:ty, $fn:ident, $to:ty) => (
+		impl PartialEq<$to> for $from {
+			fn eq(&self, other: &$to) -> bool { self.$fn() == other }
+		}
+		impl PartialEq<$from> for $to {
+			fn eq(&self, other: &$from) -> bool { self == other.$fn() }
+		}
+	);
+}
+
+#[cfg(feature = "serde")]
+macro_rules! serialize_str {
+	($ty:ty, $fn:ident) => (
+		#[cfg_attr(docsrs, doc(cfg(feature = "serde")))]
+		impl ::serde::Serialize for $ty {
+			fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+			where S: ::serde::ser::Serializer { self.$fn().serialize(serializer) }
+		}
+	);
+}
+
+
+
+/// # Re-export.
+pub(super) use {
+	as_ref_borrow,
+	display_str,
+	from_str,
+	partial_eq,
+};
+#[cfg(feature = "serde")] pub(super) use {
+	deserialize_str,
+	serialize_str,
+};
