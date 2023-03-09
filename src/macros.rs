@@ -20,9 +20,27 @@ macro_rules! deserialize_str {
 		impl<'de> ::serde::Deserialize<'de> for $ty {
 			fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
 			where D: ::serde::de::Deserializer<'de> {
-				<&str>::deserialize(deserializer).and_then(|s|
-					<$ty>::$fn(s).map_err(::serde::de::Error::custom)
-				)
+				struct Visitor;
+
+				impl<'de> ::serde::de::Visitor<'de> for Visitor {
+					type Value = $ty;
+
+					fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+						f.write_str("string")
+					}
+
+					fn visit_str<S>(self, src: &str) -> Result<$ty, S>
+					where S: ::serde::de::Error {
+						<$ty>::$fn(src).map_err(::serde::de::Error::custom)
+					}
+
+					fn visit_bytes<S>(self, src: &[u8]) -> Result<$ty, S>
+					where S: ::serde::de::Error {
+						<$ty>::$fn(src).map_err(::serde::de::Error::custom)
+					}
+				}
+
+				deserializer.deserialize_str(Visitor)
 			}
 		}
 	);
