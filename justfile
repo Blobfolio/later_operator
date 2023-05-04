@@ -85,6 +85,10 @@ doc_dir     := justfile_directory() + "/doc"
 	clear
 	fyi task "No Features"
 	cargo test \
+		--no-default-features \
+		--target x86_64-unknown-linux-gnu \
+		--target-dir "{{ cargo_dir }}"
+	cargo test \
 		--release \
 		--no-default-features \
 		--target x86_64-unknown-linux-gnu \
@@ -92,6 +96,10 @@ doc_dir     := justfile_directory() + "/doc"
 
 	echo ""
 	fyi task "All Features"
+	cargo test \
+		--all-features \
+		--target x86_64-unknown-linux-gnu \
+		--target-dir "{{ cargo_dir }}"
 	cargo test \
 		--release \
 		--all-features \
