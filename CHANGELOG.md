@@ -2,6 +2,12 @@
 
 
 
+## [0.1.2](https://github.com/Blobfolio/later_operator/releases/tag/v0.1.2) - 2023-06-01
+
+This release improves unit test coverage, but has no particular user-facing changes.
+
+
+
 ## [0.1.1](https://github.com/Blobfolio/later_operator/releases/tag/v0.1.1) - 2023-03-09
 
 ### Changed
