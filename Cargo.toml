@@ -37,7 +37,7 @@ version = "1.0.*"
 features = [ "derive" ]
 
 [dependencies]
-trimothy = "0.1.*"
+trimothy = "0.2.*"
 
 [dependencies.serde]
 version = "1.0.*"
