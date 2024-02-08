@@ -58,7 +58,7 @@ Add `later_operator` to your `dependencies` in `Cargo.toml`, like:
 
 ```toml
 [dependencies]
-later_operator = "0.1.*"
+later_operator = "0.2.*"
 ```
 
 
