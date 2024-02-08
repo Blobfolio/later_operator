@@ -71,7 +71,9 @@ pub enum ComparisonOperator {
 	Gt,
 }
 
-macros::as_ref_borrow!(ComparisonOperator, as_bytes, [u8]);
+impl AsRef<[u8]> for ComparisonOperator {
+	fn as_ref(&self) -> &[u8] { self.as_bytes() }
+}
 macros::as_ref_borrow!(ComparisonOperator, as_str, str);
 macros::display_str!(ComparisonOperator, as_str);
 macros::from_str!(ComparisonOperator, try_from);

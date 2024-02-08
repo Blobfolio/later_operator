@@ -58,14 +58,14 @@ Add `later_operator` to your `dependencies` in `Cargo.toml`, like:
 
 ```toml
 [dependencies]
-later_operator = "0.1.*"
+later_operator = "0.2.*"
 ```
 
 
 
 ## License
 
-Copyright © 2023 [Blobfolio, LLC](https://blobfolio.com) &lt;hello@blobfolio.com&gt;
+Copyright © 2024 [Blobfolio, LLC](https://blobfolio.com) &lt;hello@blobfolio.com&gt;
 
 This work is free. You can redistribute it and/or modify it under the terms of the Do What The Fuck You Want To Public License, Version 2.
 

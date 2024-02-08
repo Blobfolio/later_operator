@@ -2,6 +2,15 @@
 
 
 
+## [0.2.0](https://github.com/Blobfolio/later_operator/releases/tag/v0.2.0) - 2024-02-08
+
+### Changed
+
+* Remove `Borrow<[u8]>` for `ComparisonOperator`
+* Miscellaneous doc/script cleanup
+
+
+
 ## [0.1.3](https://github.com/Blobfolio/later_operator/releases/tag/v0.1.3) - 2023-10-05
 
 ### Changed
