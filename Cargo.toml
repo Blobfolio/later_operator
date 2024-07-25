@@ -3,7 +3,7 @@ name = "later_operator"
 version = "0.2.0"
 authors = ["Blobfolio, LLC. <hello@blobfolio.com>"]
 edition = "2021"
-rust-version = "1.60"
+rust-version = "1.80"
 description = "Parsable, storable, printable comparison operators, w/ optional serde support."
 license = "WTFPL"
 repository = "https://github.com/Blobfolio/later_operator"
@@ -35,9 +35,6 @@ serde_json = "1.0.*"
 [dev-dependencies.serde]
 version = "1.0.*"
 features = [ "derive" ]
-
-[dependencies]
-trimothy = "0.2.*"
 
 [dependencies.serde]
 version = "1.0.*"
