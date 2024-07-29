@@ -6,7 +6,6 @@ use crate::{
 	Error,
 	macros,
 };
-use trimothy::TrimSlice;
 
 
 
@@ -85,7 +84,7 @@ macros::partial_eq!(ComparisonOperator, as_str, str);
 impl TryFrom<&[u8]> for ComparisonOperator {
 	type Error = Error;
 	fn try_from(src: &[u8]) -> Result<Self, Self::Error> {
-		match src.trim() {
+		match src.trim_ascii() {
 			b"!=" =>        Ok(Self::Ne),
 			b"<"  =>        Ok(Self::Lt),
 			b"<=" =>        Ok(Self::Le),
