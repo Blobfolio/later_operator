@@ -2,11 +2,11 @@
 
 
 
-## [0.3.0](https://github.com/Blobfolio/later_operator/releases/tag/v0.3.0) - TBD
+## [0.3.0](https://github.com/Blobfolio/later_operator/releases/tag/v0.3.0) - 2024-07-28
 
 ### Changed
 
-* Use new std `<[u8]>::trim_ascii`
+* Use new std `<[u8]>::trim_ascii` methods
 * Bump MSRV `1.80`
 
 
