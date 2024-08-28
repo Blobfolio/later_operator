@@ -168,6 +168,7 @@ impl ComparisonOperator {
 	}
 }
 
+/// # Helper: Generate Is Equal/Less/Etc. Methods.
 macro_rules! is {
 	($name:literal, $fn:ident, $ty:ident) => (
 		#[must_use]

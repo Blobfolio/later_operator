@@ -6,7 +6,6 @@ use crate::macros;
 
 
 
-#[allow(missing_docs)]
 #[derive(Debug, Clone, Copy, Eq, PartialEq)]
 /// # Error.
 pub enum Error {

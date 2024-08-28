@@ -2,6 +2,7 @@
 # Later Operator: Macros
 */
 
+/// # Helper: Generate `AsRef`/`Borrow` impls.
 macro_rules! as_ref_borrow {
 	($from:ty, $fn:ident, $to:ty) => (
 		impl AsRef<$to> for $from {
@@ -14,6 +15,7 @@ macro_rules! as_ref_borrow {
 }
 
 #[cfg(feature = "serde")]
+/// # Helper: Deserialize as String.
 macro_rules! deserialize_str {
 	($ty:ty, $fn:ident) => (
 		#[cfg_attr(docsrs, doc(cfg(feature = "serde")))]
@@ -46,6 +48,7 @@ macro_rules! deserialize_str {
 	);
 }
 
+/// # Helper: Display as String.
 macro_rules! display_str {
 	($ty:ty, $fn:ident) => (
 		impl ::std::fmt::Display for $ty {
@@ -56,6 +59,7 @@ macro_rules! display_str {
 	);
 }
 
+/// # Helper: From String.
 macro_rules! from_str {
 	($ty:ty, $fn:ident) => (
 		impl ::std::str::FromStr for $ty {
@@ -65,6 +69,7 @@ macro_rules! from_str {
 	);
 }
 
+/// # Helper: Symmetrical `PartialEq`.
 macro_rules! partial_eq {
 	($from:ty, $fn:ident, $to:ty) => (
 		impl PartialEq<$to> for $from {
@@ -77,6 +82,7 @@ macro_rules! partial_eq {
 }
 
 #[cfg(feature = "serde")]
+/// # Helper: Serialize as String.
 macro_rules! serialize_str {
 	($ty:ty, $fn:ident) => (
 		#[cfg_attr(docsrs, doc(cfg(feature = "serde")))]
