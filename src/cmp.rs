@@ -91,7 +91,7 @@ impl TryFrom<&[u8]> for ComparisonOperator {
 			b"==" | b"=" => Ok(Self::Eq),
 			b">=" =>        Ok(Self::Ge),
 			b">"  =>        Ok(Self::Gt),
-			_     =>        Err(Error::ComparisonOperator),
+			_     =>        Err(Error),
 		}
 	}
 }
