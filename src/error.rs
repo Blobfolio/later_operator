@@ -6,7 +6,7 @@ use crate::macros;
 
 
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, Eq, PartialEq)]
 /// # Error.
 pub struct Error;
 
