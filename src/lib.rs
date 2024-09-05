@@ -41,7 +41,7 @@ assert!(ComparisonOperator::try_from("~").is_err());
 #![forbid(unsafe_code)]
 
 #![deny(
-	// TODO: clippy::allow_attributes_without_reason,
+	clippy::allow_attributes_without_reason,
 	clippy::correctness,
 	unreachable_pub,
 )]
@@ -53,7 +53,7 @@ assert!(ComparisonOperator::try_from("~").is_err());
 	clippy::perf,
 	clippy::style,
 
-	// TODO: clippy::allow_attributes,
+	clippy::allow_attributes,
 	clippy::clone_on_ref_ptr,
 	clippy::create_dir,
 	clippy::filetype_is_file,
