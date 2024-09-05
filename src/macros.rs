@@ -5,12 +5,12 @@
 /// # Helper: Generate `AsRef`/`Borrow` impls.
 macro_rules! as_ref_borrow {
 	($from:ty, $fn:ident, $to:ty) => (
-		#[inline]
 		impl AsRef<$to> for $from {
+			#[inline]
 			fn as_ref(&self) -> &$to { self.$fn() }
 		}
-		#[inline]
 		impl ::std::borrow::Borrow<$to> for $from {
+			#[inline]
 			fn borrow(&self) -> &$to { self.$fn() }
 		}
 	);
@@ -65,9 +65,9 @@ macro_rules! display_str {
 /// # Helper: From String.
 macro_rules! from_str {
 	($ty:ty, $fn:ident) => (
-		#[inline]
 		impl ::std::str::FromStr for $ty {
 			type Err = $crate::Error;
+			#[inline]
 			fn from_str(src: &str) -> Result<Self, Self::Err> { Self::$fn(src) }
 		}
 	);
@@ -76,12 +76,12 @@ macro_rules! from_str {
 /// # Helper: Symmetrical `PartialEq`.
 macro_rules! partial_eq {
 	($from:ty, $fn:ident, $to:ty) => (
-		#[inline]
 		impl PartialEq<$to> for $from {
+			#[inline]
 			fn eq(&self, other: &$to) -> bool { self.$fn() == other }
 		}
-		#[inline]
 		impl PartialEq<$from> for $to {
+			#[inline]
 			fn eq(&self, other: &$from) -> bool { self == other.$fn() }
 		}
 	);
