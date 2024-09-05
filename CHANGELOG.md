@@ -2,6 +2,16 @@
 
 
 
+## [0.4.0](https://github.com/Blobfolio/later_operator/releases/tag/v0.4.0) - 2024-09-05
+
+### Changed
+
+* `Error` is now zst
+* Bump MSRV to `1.81`
+* Miscellaneous code cleanup and lints
+
+
+
 ## [0.3.0](https://github.com/Blobfolio/later_operator/releases/tag/v0.3.0) - 2024-07-28
 
 ### Changed

@@ -2,11 +2,14 @@
 # Later Operator: Macros
 */
 
+/// # Helper: Generate `AsRef`/`Borrow` impls.
 macro_rules! as_ref_borrow {
 	($from:ty, $fn:ident, $to:ty) => (
+		#[inline]
 		impl AsRef<$to> for $from {
 			fn as_ref(&self) -> &$to { self.$fn() }
 		}
+		#[inline]
 		impl ::std::borrow::Borrow<$to> for $from {
 			fn borrow(&self) -> &$to { self.$fn() }
 		}
@@ -14,6 +17,7 @@ macro_rules! as_ref_borrow {
 }
 
 #[cfg(feature = "serde")]
+/// # Helper: Deserialize as String.
 macro_rules! deserialize_str {
 	($ty:ty, $fn:ident) => (
 		#[cfg_attr(docsrs, doc(cfg(feature = "serde")))]
@@ -46,9 +50,11 @@ macro_rules! deserialize_str {
 	);
 }
 
+/// # Helper: Display as String.
 macro_rules! display_str {
 	($ty:ty, $fn:ident) => (
 		impl ::std::fmt::Display for $ty {
+			#[inline]
 			fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
 				f.write_str(self.$fn())
 			}
@@ -56,8 +62,10 @@ macro_rules! display_str {
 	);
 }
 
+/// # Helper: From String.
 macro_rules! from_str {
 	($ty:ty, $fn:ident) => (
+		#[inline]
 		impl ::std::str::FromStr for $ty {
 			type Err = $crate::Error;
 			fn from_str(src: &str) -> Result<Self, Self::Err> { Self::$fn(src) }
@@ -65,11 +73,14 @@ macro_rules! from_str {
 	);
 }
 
+/// # Helper: Symmetrical `PartialEq`.
 macro_rules! partial_eq {
 	($from:ty, $fn:ident, $to:ty) => (
+		#[inline]
 		impl PartialEq<$to> for $from {
 			fn eq(&self, other: &$to) -> bool { self.$fn() == other }
 		}
+		#[inline]
 		impl PartialEq<$from> for $to {
 			fn eq(&self, other: &$from) -> bool { self == other.$fn() }
 		}
@@ -77,6 +88,7 @@ macro_rules! partial_eq {
 }
 
 #[cfg(feature = "serde")]
+/// # Helper: Serialize as String.
 macro_rules! serialize_str {
 	($ty:ty, $fn:ident) => (
 		#[cfg_attr(docsrs, doc(cfg(feature = "serde")))]

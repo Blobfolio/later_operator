@@ -6,12 +6,9 @@ use crate::macros;
 
 
 
-#[allow(missing_docs)]
-#[derive(Debug, Clone, Copy, Eq, PartialEq)]
+#[derive(Debug, Clone, Copy)]
 /// # Error.
-pub enum Error {
-	ComparisonOperator,
-}
+pub struct Error;
 
 macros::as_ref_borrow!(Error, as_str, str);
 macros::display_str!(Error, as_str);
@@ -23,9 +20,5 @@ impl Error {
 	/// # As Str.
 	///
 	/// Return the error as a string slice.
-	pub const fn as_str(self) -> &'static str {
-		match self {
-			Self::ComparisonOperator => "unable to parse comparison operator",
-		}
-	}
+	pub const fn as_str(self) -> &'static str { "unable to parse comparison operator" }
 }
