@@ -2,7 +2,10 @@
 # Later Operator: Errors
 */
 
-use crate::macros;
+use std::{
+	borrow::Borrow,
+	fmt,
+};
 
 
 
@@ -10,10 +13,22 @@ use crate::macros;
 /// # Error.
 pub struct Error;
 
-macros::as_ref_borrow!(Error, as_str, str);
-macros::display_str!(Error, as_str);
+impl AsRef<str> for Error {
+	#[inline]
+	fn as_ref(&self) -> &str { self.as_str() }
+}
+
+impl Borrow<str> for Error {
+	#[inline]
+	fn borrow(&self) -> &str { self.as_str() }
+}
 
 impl std::error::Error for Error {}
+
+impl fmt::Display for Error {
+	#[inline]
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result { f.pad(self.as_str()) }
+}
 
 impl Error {
 	#[must_use]

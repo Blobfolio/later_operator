@@ -91,7 +91,6 @@ assert!(ComparisonOperator::try_from("~").is_err());
 
 mod cmp;
 mod error;
-pub(crate) mod macros;
 
 pub use cmp::ComparisonOperator;
 pub use error::Error;

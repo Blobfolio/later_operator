@@ -2,9 +2,11 @@
 # Later Operator: Comparison Operator.
 */
 
-use crate::{
-	Error,
-	macros,
+use crate::Error;
+use std::{
+	borrow::Borrow,
+	fmt,
+	str::FromStr,
 };
 
 
@@ -71,18 +73,89 @@ pub enum ComparisonOperator {
 }
 
 impl AsRef<[u8]> for ComparisonOperator {
+	#[inline]
 	fn as_ref(&self) -> &[u8] { self.as_bytes() }
 }
-macros::as_ref_borrow!(ComparisonOperator, as_str, str);
-macros::display_str!(ComparisonOperator, as_str);
-macros::from_str!(ComparisonOperator, try_from);
-macros::partial_eq!(ComparisonOperator, as_str, str);
 
-#[cfg(feature = "serde")] macros::deserialize_str!(ComparisonOperator, try_from);
-#[cfg(feature = "serde")] macros::serialize_str!(ComparisonOperator, as_str);
+impl AsRef<str> for ComparisonOperator {
+	#[inline]
+	fn as_ref(&self) -> &str { self.as_str() }
+}
+
+impl Borrow<str> for ComparisonOperator {
+	#[inline]
+	fn borrow(&self) -> &str { self.as_str() }
+}
+
+impl fmt::Display for ComparisonOperator {
+	#[inline]
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result { f.pad(self.as_str()) }
+}
+
+#[cfg(feature = "serde")]
+#[cfg_attr(docsrs, doc(cfg(feature = "serde")))]
+impl<'de> ::serde::Deserialize<'de> for ComparisonOperator {
+	fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+	where D: ::serde::de::Deserializer<'de> {
+		/// # Visitor.
+		struct Visitor;
+
+		impl<'de> ::serde::de::Visitor<'de> for Visitor {
+			type Value = ComparisonOperator;
+
+			#[inline]
+			fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+				f.write_str("string")
+			}
+
+			#[inline]
+			fn visit_str<S>(self, src: &str) -> Result<ComparisonOperator, S>
+			where S: ::serde::de::Error {
+				<ComparisonOperator>::try_from(src).map_err(::serde::de::Error::custom)
+			}
+
+			#[inline]
+			fn visit_bytes<S>(self, src: &[u8]) -> Result<ComparisonOperator, S>
+			where S: ::serde::de::Error {
+				<ComparisonOperator>::try_from(src).map_err(::serde::de::Error::custom)
+			}
+		}
+
+		deserializer.deserialize_str(Visitor)
+	}
+}
+
+impl FromStr for ComparisonOperator {
+	type Err = Error;
+
+	#[inline]
+	fn from_str(src: &str) -> Result<Self, Self::Err> {
+		Self::try_from(src.as_bytes())
+	}
+}
+
+impl PartialEq<str> for ComparisonOperator {
+	#[inline]
+	fn eq(&self, other: &str) -> bool { self.as_str() == other }
+}
+
+impl PartialEq<ComparisonOperator> for str {
+	#[inline]
+	fn eq(&self, other: &ComparisonOperator) -> bool { self == other.as_str() }
+}
+
+#[cfg(feature = "serde")]
+#[cfg_attr(docsrs, doc(cfg(feature = "serde")))]
+impl ::serde::Serialize for ComparisonOperator {
+	#[inline]
+	fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+	where S: ::serde::ser::Serializer { self.as_str().serialize(serializer) }
+}
 
 impl TryFrom<&[u8]> for ComparisonOperator {
 	type Error = Error;
+
+	#[inline]
 	fn try_from(src: &[u8]) -> Result<Self, Self::Error> {
 		match src.trim_ascii() {
 			b"!=" =>        Ok(Self::Ne),
@@ -98,9 +171,9 @@ impl TryFrom<&[u8]> for ComparisonOperator {
 
 impl TryFrom<&str> for ComparisonOperator {
 	type Error = Error;
-	fn try_from(src: &str) -> Result<Self, Self::Error> {
-		Self::try_from(src.as_bytes())
-	}
+
+	#[inline]
+	fn try_from(src: &str) -> Result<Self, Self::Error> { Self::try_from(src.as_bytes()) }
 }
 
 impl ComparisonOperator {
