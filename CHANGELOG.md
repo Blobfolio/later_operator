@@ -2,6 +2,15 @@
 
 
 
+## [0.4.1](https://github.com/Blobfolio/later_operator/releases/tag/v0.4.1) - 2024-11-04
+
+### Changed
+
+* Minor code cleanup and lints
+* Update docs
+
+
+
 ## [0.4.0](https://github.com/Blobfolio/later_operator/releases/tag/v0.4.0) - 2024-09-05
 
 ### Changed
