@@ -27,7 +27,9 @@ impl std::error::Error for Error {}
 
 impl fmt::Display for Error {
 	#[inline]
-	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result { f.pad(self.as_str()) }
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+		<str as fmt::Display>::fmt(self.as_str(), f)
+	}
 }
 
 impl Error {
