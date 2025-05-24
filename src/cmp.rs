@@ -302,7 +302,6 @@ mod tests {
 	use super::*;
 	use serde as _;
 	use serde_json as _;
-	use std::str::FromStr;
 
 	#[test]
 	fn t_parse() {
