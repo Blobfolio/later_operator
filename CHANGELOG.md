@@ -2,6 +2,14 @@
 
 
 
+## [0.6.0](https://github.com/Blobfolio/later_operator/releases/tag/v0.6.0) - TBD
+
+### Changed
+
+* Replace `serde` w/ `serde_core`
+
+
+
 ## [0.5.0](https://github.com/Blobfolio/later_operator/releases/tag/v0.5.0) - 2025-02-24
 
 ### Changed

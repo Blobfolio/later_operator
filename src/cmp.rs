@@ -96,13 +96,13 @@ impl fmt::Display for ComparisonOperator {
 
 #[cfg(feature = "serde")]
 #[cfg_attr(docsrs, doc(cfg(feature = "serde")))]
-impl<'de> ::serde::Deserialize<'de> for ComparisonOperator {
+impl<'de> ::serde_core::Deserialize<'de> for ComparisonOperator {
 	fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-	where D: ::serde::de::Deserializer<'de> {
+	where D: ::serde_core::de::Deserializer<'de> {
 		/// # Visitor.
 		struct Visitor;
 
-		impl ::serde::de::Visitor<'_> for Visitor {
+		impl ::serde_core::de::Visitor<'_> for Visitor {
 			type Value = ComparisonOperator;
 
 			#[inline]
@@ -112,14 +112,14 @@ impl<'de> ::serde::Deserialize<'de> for ComparisonOperator {
 
 			#[inline]
 			fn visit_str<S>(self, src: &str) -> Result<ComparisonOperator, S>
-			where S: ::serde::de::Error {
-				<ComparisonOperator>::try_from(src).map_err(::serde::de::Error::custom)
+			where S: ::serde_core::de::Error {
+				<ComparisonOperator>::try_from(src).map_err(::serde_core::de::Error::custom)
 			}
 
 			#[inline]
 			fn visit_bytes<S>(self, src: &[u8]) -> Result<ComparisonOperator, S>
-			where S: ::serde::de::Error {
-				<ComparisonOperator>::try_from(src).map_err(::serde::de::Error::custom)
+			where S: ::serde_core::de::Error {
+				<ComparisonOperator>::try_from(src).map_err(::serde_core::de::Error::custom)
 			}
 		}
 
@@ -148,10 +148,10 @@ impl PartialEq<ComparisonOperator> for str {
 
 #[cfg(feature = "serde")]
 #[cfg_attr(docsrs, doc(cfg(feature = "serde")))]
-impl ::serde::Serialize for ComparisonOperator {
+impl ::serde_core::Serialize for ComparisonOperator {
 	#[inline]
 	fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-	where S: ::serde::ser::Serializer { self.as_str().serialize(serializer) }
+	where S: ::serde_core::ser::Serializer { self.as_str().serialize(serializer) }
 }
 
 impl TryFrom<&[u8]> for ComparisonOperator {
@@ -300,7 +300,7 @@ impl ComparisonOperator {
 #[cfg(test)]
 mod tests {
 	use super::*;
-	use serde as _;
+	use serde as _; // For doc tests.
 	use serde_json as _;
 
 	#[test]
