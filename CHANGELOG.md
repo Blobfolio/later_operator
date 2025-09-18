@@ -2,6 +2,15 @@
 
 
 
+## [0.5.1](https://github.com/Blobfolio/later_operator/releases/tag/v0.5.1) - 2025-09-18
+
+### Changed
+
+* Replace `serde` w/ `serde_core`
+* Miscellaneous code cleanup and lints
+
+
+
 ## [0.5.0](https://github.com/Blobfolio/later_operator/releases/tag/v0.5.0) - 2025-02-24
 
 ### Changed
@@ -15,7 +24,7 @@
 
 ### Changed
 
-* Minor code cleanup and lints
+* Miscellaneous code cleanup and lints
 
 
 
@@ -23,7 +32,7 @@
 
 ### Changed
 
-* Minor code cleanup and lints
+* Miscellaneous code cleanup and lints
 * Update docs
 
 
